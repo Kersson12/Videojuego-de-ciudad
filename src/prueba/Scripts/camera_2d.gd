@@ -2,7 +2,7 @@ extends Camera2D
 
 # Configuración de zoom
 @export var zoom_min: float = 0.5
-@export var zoom_max: float = 3.0
+@export var zoom_max: float = 2.0
 @export var zoom_speed: float = 0.1
 
 # Configuración de movimiento
@@ -24,9 +24,10 @@ var cached_zoom_vector: Vector2
 var zoom_changed: bool = false
 
 func _ready():
-	# Optimización: cachear el vector de zoom inicial
-	cached_zoom_vector = Vector2(zoom_min, zoom_min).clamp(Vector2(zoom_min, zoom_min), Vector2(zoom_max, zoom_max))
+	# Si ya tienes un zoom en el editor, úsalo como valor inicial
+	cached_zoom_vector = zoom.clamp(Vector2(zoom_min, zoom_min), Vector2(zoom_max, zoom_max))
 	zoom = cached_zoom_vector
+
 
 func _input(event):
 	# Solo procesar eventos relevantes

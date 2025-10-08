@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1tm4hbmnjpbr"]
+[gd_scene load_steps=6 format=3 uid="uid://d1tm4hbmnjpbr"]
 
 [ext_resource type="PackedScene" uid="uid://b12jvumo66u2c" path="res://Escenas/ciudad.tscn" id="1_xqphe"]
 [ext_resource type="Script" uid="uid://drvsreiow3i7e" path="res://Scripts/camera_2d.gd" id="2_qup40"]
+[ext_resource type="Script" uid="uid://c8thts6xoom3t" path="res://Scripts/cable_manager.gd" id="3_1d5jh"]
+[ext_resource type="PackedScene" uid="uid://xxqhn0vqrbdr" path="res://Escenas/HUD.tscn" id="3_nnhoj"]
+[ext_resource type="Script" uid="uid://22f7hgtl8em0" path="res://Scripts/hud.gd" id="5_7rpyo"]
 
 [node name="Game" type="Node2D"]
 
@@ -10,3 +13,14 @@
 [node name="Camera2D" type="Camera2D" parent="Ciudad"]
 limit_enabled = false
 script = ExtResource("2_qup40")
+
+[node name="CableManager" type="Node2D" parent="Ciudad"]
+script = ExtResource("3_1d5jh")
+
+[node name="CableCamera" type="Camera2D" parent="Ciudad/CableManager"]
+editor_draw_screen = false
+
+[node name="HUDMain" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="HUDMain" instance=ExtResource("3_nnhoj")]
+script = ExtResource("5_7rpyo")

@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://xxqhn0vqrbdr"]
+
+[ext_resource type="Texture2D" uid="uid://bnp1r70f4lmx8" path="res://Assets/cablebutton-removebg-preview.png" id="1_j171n"]
+[ext_resource type="Texture2D" uid="uid://blftaia0tpa3a" path="res://Assets/---removebg-preview.png" id="2_den20"]
+[ext_resource type="Texture2D" uid="uid://0k1uxcns6nxf" path="res://Assets/Diseño_sin_título-removebg-preview.png" id="3_lhl2b"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CableButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 590.0
+offset_right = 1650.0
+offset_bottom = 1090.0
+scale = Vector2(0.2, 0.2)
+action_mode = 0
+texture_normal = ExtResource("1_j171n")
+
+[node name="CablePanel" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RemoveButton" type="TextureButton" parent="CablePanel"]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 540.0
+offset_right = 990.0
+offset_bottom = 1040.0
+scale = Vector2(0.2, 0.2)
+action_mode = 0
+texture_normal = ExtResource("2_den20")
+
+[node name="PlaceButton" type="TextureButton" parent="CablePanel"]
+layout_mode = 0
+offset_left = 690.0
+offset_top = 540.0
+offset_right = 1190.0
+offset_bottom = 1040.0
+scale = Vector2(0.2, 0.2)
+action_mode = 0
+texture_normal = ExtResource("3_lhl2b")
