@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pruebaperso"
-run/main_scene="uid://iehsmuft4di0"
+run/main_scene="uid://d1tm4hbmnjpbr"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

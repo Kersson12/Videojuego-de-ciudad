@@ -14,3 +14,7 @@ config/name="JuegosMediosTransmision"
 run/main_scene="res://node_2d.tscn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="JuegosMediosTransmision"
