@@ -1,0 +1,15 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dh1x3pg4xttoh"]
+
+[ext_resource type="Texture2D" uid="uid://vpsp7l4mag2u" path="res://Assets/Tiles/Houses_isometric/datacenter-removebg-preview.png" id="1_op3qj"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7x4bc"]
+texture = ExtResource("1_op3qj")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(-117, 70)
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(231, 132)
+sources/0 = SubResource("TileSetAtlasSource_7x4bc")
