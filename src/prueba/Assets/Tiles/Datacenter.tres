@@ -6,10 +6,10 @@
 texture = ExtResource("1_op3qj")
 texture_region_size = Vector2i(500, 500)
 0:0/0 = 0
-0:0/0/texture_origin = Vector2i(-117, 70)
+0:0/0/texture_origin = Vector2i(-117, 69)
 
 [resource]
 tile_shape = 1
 tile_layout = 5
-tile_size = Vector2i(231, 132)
+tile_size = Vector2i(231, 133)
 sources/0 = SubResource("TileSetAtlasSource_7x4bc")

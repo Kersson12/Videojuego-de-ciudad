@@ -13,6 +13,8 @@ signal cable_preview_updated(current_pos: Vector2)
 # -------------------------
 @export var cable_color: Color = Color.YELLOW
 @export var cable_width: float = 4.0
+@export var meters_per_segment: float = 10.0      # 🌐 Cada conexión de grid equivale a 10 m
+@export var loss_per_km: float = 0.35             # 🔻 Pérdida típica en dB/km
 
 # Grid isométrico "Diamond Down"
 const TILE_WIDTH: int = 128
@@ -31,17 +33,32 @@ var start_position: Vector2 = Vector2.ZERO
 var current_line: Line2D = null
 var tilemap_container: Node2D = null
 
+var total_cable_length_m: float = 0.0   # 🧮 Longitud total en metros
+var total_loss_db: float = 0.0          # 🔻 Pérdidas totales en dB
+
+# Label flotante
+var floating_label: Label = null
+
 # -------------------------
 # 🟢 INICIO
 # -------------------------
 func _ready():
-	# Intentar obtener el tilemap si existe
 	if has_node("../Tilemap"):
 		tilemap_container = get_node("../Tilemap")
 	else:
 		print("⚠️ Advertencia: No se encontró Tilemap en el parent")
 
 	print("CableManager iniciado - Grid Diamond Down: %dx%d px" % [TILE_WIDTH, TILE_HEIGHT])
+	
+	# Crear label flotante
+	floating_label = Label.new()
+	floating_label.theme = ThemeDB.get_default_theme()
+	floating_label.modulate = Color(1, 1, 0.7)
+	floating_label.scale = Vector2(1.1, 1.1)
+	add_child(floating_label)
+	floating_label.z_index = 100
+	floating_label.text = "Grid listo..."
+	floating_label.position = Vector2(20, 20)
 
 # -------------------------
 # 🎮 INPUT PRINCIPAL
@@ -50,15 +67,16 @@ func _input(event: InputEvent) -> void:
 	if not (is_placing_cable or is_removing_cable):
 		return
 
-	# Evitar que clics de UI lleguen aquí
 	if get_viewport().gui_get_hovered_control():
 		return
 
-	# Movimiento del mouse (preview)
-	if event is InputEventMouseMotion and is_placing_cable and current_line:
-		update_cable_preview(get_global_mouse_position())
+	# Movimiento del mouse (preview y label)
+	if event is InputEventMouseMotion:
+		update_floating_label()
+		if is_placing_cable and current_line:
+			update_cable_preview(get_global_mouse_position())
 
-	# Clics del mouse
+	# Clicks del mouse
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if is_placing_cable:
@@ -92,7 +110,6 @@ func snap_to_diamond_grid(world_pos: Vector2) -> Vector2:
 func start_cable_placement(mouse_pos: Vector2):
 	start_position = snap_to_diamond_grid(mouse_pos)
 	
-	# Si ya había una línea previa mal cerrada, limpiarla
 	if current_line:
 		current_line.queue_free()
 		current_line = null
@@ -125,11 +142,22 @@ func finish_cable_placement(mouse_pos: Vector2):
 	var distance = start_position.distance_to(end_pos)
 	if distance > 10.0:
 		cables.append(current_line)
+
+		# Calcular longitud en metros (por grid)
+		var start_grid = world_to_diamond_grid(start_position)
+		var end_grid = world_to_diamond_grid(end_pos)
+		var grid_distance = start_grid.distance_to(end_grid)
+		var segment_length_m = grid_distance * meters_per_segment
+		
+		total_cable_length_m += segment_length_m
+		_update_total_loss()
+
 		cable_placed.emit(start_position, end_pos)
 	else:
 		current_line.queue_free()
 	
 	current_line = null
+	update_floating_label()
 
 # -------------------------
 # ❌ LÓGICA DE REMOCIÓN
@@ -142,12 +170,23 @@ func remove_cable_at_position(mouse_pos: Vector2):
 		if cable_contains_point(cable, grid_pos):
 			var start = cable.get_point_position(0)
 			var end = cable.get_point_position(1)
+
+			var start_grid = world_to_diamond_grid(start)
+			var end_grid = world_to_diamond_grid(end)
+			var grid_distance = start_grid.distance_to(end_grid)
+			var segment_length_m = grid_distance * meters_per_segment
+
+			total_cable_length_m = max(total_cable_length_m - segment_length_m, 0.0)
+			_update_total_loss()
+			
 			cable.queue_free()
 			cables.remove_at(i)
 			
 			if start.distance_to(end) > 10.0:
 				cable_removed.emit(start, end)
 			break
+
+	update_floating_label()
 
 func cable_contains_point(cable: Line2D, point: Vector2) -> bool:
 	if not cable or cable.get_point_count() < 2:
@@ -179,6 +218,7 @@ func set_placing_mode(enabled: bool):
 	if not enabled and current_line:
 		current_line.queue_free()
 		current_line = null
+	update_floating_label()
 
 func set_removing_mode(enabled: bool):
 	is_removing_cable = enabled
@@ -186,27 +226,40 @@ func set_removing_mode(enabled: bool):
 	if current_line:
 		current_line.queue_free()
 		current_line = null
+	update_floating_label()
 
 # -------------------------
-# 🧠 DEBUG Y UTILIDAD
+# 🧠 LABEL FLOTANTE + CÁLCULOS
 # -------------------------
-func get_grid_info_at_mouse() -> Dictionary:
-	var mouse_pos = get_global_mouse_position()
-	var grid_pos = world_to_diamond_grid(mouse_pos)
-	var snapped_world = diamond_grid_to_world(grid_pos)
+func _update_total_loss():
+	# Convertir pérdida a dB totales (dB/km → dB/m)
+	var loss_per_m = loss_per_km / 1000.0
+	total_loss_db = total_cable_length_m * loss_per_m
+
+func update_floating_label():
+	if not floating_label:
+		return
 	
-	return {
-		"mouse_world": mouse_pos,
-		"grid_coord": grid_pos,
-		"snapped_world": snapped_world,
-		"tile_size": "%dx%d px" % [TILE_WIDTH, TILE_HEIGHT],
-		"grid_type": "Diamond Down"
-	}
+	var mouse = get_global_mouse_position()
+	var grid = world_to_diamond_grid(mouse)
+	
+	floating_label.text = "🧭 Grid: %s\n📏 Total cable: %.1f m\n🔻 Pérdidas: %.3f dB" % [
+		str(grid),
+		total_cable_length_m,
+		total_loss_db
+	]
+	floating_label.position = mouse + Vector2(16, 16)
 
+# -------------------------
+# 🧹 UTILIDAD
+# -------------------------
 func clear_all_cables():
 	for cable in cables:
 		cable.queue_free()
 	cables.clear()
+	total_cable_length_m = 0.0
+	total_loss_db = 0.0
+	update_floating_label()
 	print("🧹 Todos los cables eliminados")
 
 func get_cable_count() -> int:
