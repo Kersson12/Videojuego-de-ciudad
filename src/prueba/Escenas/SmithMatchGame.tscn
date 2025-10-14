@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://crna3yij3eujb"]
+[gd_scene load_steps=8 format=3 uid="uid://crna3yij3eujb"]
 
+[ext_resource type="Script" uid="uid://cc40xlphpv4nw" path="res://Scripts/SmithMatchGame.gd" id="1_rgupp"]
 [ext_resource type="Texture2D" uid="uid://vbbi7f1nctyv" path="res://Assets/smith.png" id="2_r0ns1"]
 
 [sub_resource type="Theme" id="Theme_r0ns1"]
@@ -35,6 +36,7 @@ corner_radius_bottom_left = 10
 [node name="SmithMatchGame" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_rgupp")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0

@@ -26,6 +26,11 @@ var questions = []
 var selected_answer = -1
 var wrong_answers = []
 
+# ⏱ Variables del temporizador global
+var total_time = 90 # Tiempo total para completar el quiz
+var remaining_time = total_time
+var game_active = true
+
 func _ready():
 	setup_questions()
 	option_a.pressed.connect(_on_option_pressed.bind(0))
@@ -36,7 +41,40 @@ func _ready():
 	restart_button.pressed.connect(_on_restart_pressed)
 	timer.timeout.connect(_on_timer_timeout)
 	show_question()
+	start_global_timer() # ⏱ Arranca el temporizador principal
 
+# -----------------------------
+# ⏱ TEMPORIZADOR GLOBAL
+# -----------------------------
+func start_global_timer():
+	await get_tree().create_timer(1.0).timeout
+	while remaining_time > 0 and game_active:
+		remaining_time -= 1
+		progress_label.text = "⏳ Tiempo: %ds | Pregunta %d/%d | Correctas: %d" % [remaining_time, current_question + 1, questions.size(), score]
+		
+		# Si queda poco tiempo, cambiar color
+		if remaining_time <= 10:
+			progress_label.modulate = Color(1, 0.3, 0.3) # rojo
+		else:
+			progress_label.modulate = Color(1, 1, 1)
+		
+		await get_tree().create_timer(1.0).timeout
+	
+	# Si se acaba el tiempo antes de terminar el quiz
+	if remaining_time <= 0 and game_active:
+		game_active = false
+		show_time_over()
+
+func show_time_over():
+	enable_buttons(false)
+	feedback_label.text = "⏰ Tiempo agotado. Fin del juego."
+	feedback_label.visible = true
+	await get_tree().create_timer(3.0).timeout
+	get_tree().change_scene_to_file("res://Escenas/Game.tscn")
+
+# -----------------------------
+# 🧩 PREGUNTAS
+# -----------------------------
 func setup_questions():
 	questions = [
 		{
@@ -212,12 +250,15 @@ func show_question():
 	option_b.text = "B) " + q["options"][1]
 	option_c.text = "C) " + q["options"][2]
 	option_d.text = "D) " + q["options"][3]
-	progress_label.text = "Pregunta %d de %d | Correctas: %d" % [current_question + 1, questions.size(), score]
+	progress_label.text = "⏳ Tiempo: %ds | Pregunta %d/%d | Correctas: %d" % [remaining_time, current_question + 1, questions.size(), score]
 	enable_buttons(true)
 	feedback_label.visible = false
 	explanation_panel.visible = false
 
 func _on_option_pressed(option_index: int):
+	if not game_active:
+		return
+		
 	var q = questions[current_question]
 	selected_answer = option_index
 	enable_buttons(false)
@@ -258,7 +299,14 @@ func enable_buttons(enabled: bool):
 	option_c.disabled = !enabled
 	option_d.disabled = !enabled
 
+# -----------------------------
+# 🎯 RESULTADOS
+# -----------------------------
 func show_results():
+	if not game_active:
+		return
+	
+	game_active = false
 	result_panel.visible = true
 	var percentage = (float(score) / questions.size()) * 100
 	score_label.text = "Puntaje: %d/%d (%.0f%%)" % [score, questions.size(), percentage]
@@ -285,9 +333,16 @@ func show_results():
 	else:
 		summary_label.text = "🎉 ¡PERFECTO! Respondiste todas correctamente.\n\nDominas completamente los conceptos de redes PON, WDM y FTTH."
 
+	# Espera 5 segundos y vuelve al juego
+	await get_tree().create_timer(5.0).timeout
+	get_tree().change_scene_to_file("res://Escenas/Game.tscn")
+
 func _on_restart_pressed():
 	current_question = 0
 	score = 0
 	wrong_answers = []
 	result_panel.visible = false
+	game_active = true
+	remaining_time = total_time
 	show_question()
+	start_global_timer()

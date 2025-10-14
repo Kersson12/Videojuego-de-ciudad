@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://86w3m4ywgt4a"]
 
-[ext_resource type="Script" path="res://Scripts/quiz_pon.gd" id="1_w6mlu"]
+[ext_resource type="Script" uid="uid://c5pd2ldm0ex6o" path="res://Scripts/quiz_pon.gd" id="1_w6mlu"]
 
 [node name="QuizPON" type="Control"]
 layout_mode = 3

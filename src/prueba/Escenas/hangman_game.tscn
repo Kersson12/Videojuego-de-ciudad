@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4u0ucdp437cd"]
 
-[ext_resource type="Script" path="res://Scripts/hangman_game.gd" id="1_3ypp6"]
+[ext_resource type="Script" uid="uid://dsmxapbr4bp78" path="res://Scripts/hangman_game.gd" id="1_3ypp6"]
 
 [node name="HangmanGame" type="Control"]
 layout_mode = 3

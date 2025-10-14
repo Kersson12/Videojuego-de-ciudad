@@ -8,8 +8,8 @@ extends Node2D
 var pulso_actual: Node2D = null
 var pulso_esperando_click := false
 var minijuegos = [
-	"res://Escenas/hangman_game.tscn"
-	
+	"res://Escenas/hangman_game.tscn","res://Escenas/ImpedanceChallenge.tscn","res://Escenas/node_2d.tscn",
+	"res://Escenas/quiz_pon.tscn","res://Escenas/SmithMatchGame.tscn"
 ]
 
 func _ready():
