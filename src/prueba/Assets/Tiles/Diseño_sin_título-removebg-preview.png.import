@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blfqfh6h7wmek"
-path="res://.godot/imported/cablebutton.png-14bea56fd40cf2c6827385a30910a1a8.ctex"
+uid="uid://0k1uxcns6nxf"
+path="res://.godot/imported/Diseño_sin_título-removebg-preview.png-c9111c2096a0ad56d421548b5f27ab91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cablebutton.png"
-dest_files=["res://.godot/imported/cablebutton.png-14bea56fd40cf2c6827385a30910a1a8.ctex"]
+source_file="res://Assets/Tiles/Diseño_sin_título-removebg-preview.png"
+dest_files=["res://.godot/imported/Diseño_sin_título-removebg-preview.png-c9111c2096a0ad56d421548b5f27ab91.ctex"]
 
 [params]
 
