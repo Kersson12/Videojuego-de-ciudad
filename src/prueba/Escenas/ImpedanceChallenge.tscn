@@ -125,7 +125,7 @@ offset_left = 196.0
 offset_top = 185.0
 offset_right = 292.0
 offset_bottom = 221.0
-text = "Cancelar"
+text = "Salir"
 
 [node name="ResultLabel" type="Label" parent="Panel"]
 layout_mode = 0
