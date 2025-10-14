@@ -54,6 +54,7 @@ func _on_btn_check_pressed():
 
 func _on_btn_cancel_pressed():
 	queue_free()
+	
 
 # ---------- AUDIO (archivos .wav) ----------
 func _play_success_sound() -> void:

@@ -1,0 +1,175 @@
+[gd_scene load_steps=2 format=3 uid="uid://86w3m4ywgt4a"]
+
+[ext_resource type="Script" path="res://Scripts/quiz_pon.gd" id="1_w6mlu"]
+
+[node name="QuizPON" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 221.0
+offset_top = 34.0
+offset_right = 221.0
+offset_bottom = 34.0
+script = ExtResource("1_w6mlu")
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.039215688, 0.05490196, 0.15294118, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(900, 450)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "📡 QUIZ - Redes PON y WDM"
+horizontal_alignment = 1
+
+[node name="CategoryQuestion" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Categoria: Fundamentos
+"
+horizontal_alignment = 1
+
+[node name="QuestionLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(850, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "La pregunta aparecera aqui:"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OptionA" type="Button" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 60)
+layout_mode = 2
+text = "Opcion A"
+
+[node name="OptionB" type="Button" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 60)
+layout_mode = 2
+text = "Opcion B"
+
+[node name="OptionC" type="Button" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 60)
+layout_mode = 2
+text = "Opcion C
+"
+
+[node name="OptionD" type="Button" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 60)
+layout_mode = 2
+text = "Opcion D"
+
+[node name="FeedBackLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="ProgressLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Pregunta 1 de 10 | Correctas: 0"
+horizontal_alignment = 1
+
+[node name="ExplanationPlanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExplanationVBox" type="VBoxContainer" parent="ExplanationPlanel"]
+custom_minimum_size = Vector2(800, 650)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 15
+
+[node name="ExplanationTitle" type="Label" parent="ExplanationPlanel/ExplanationVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "✅ ¡CORRECTO!"
+horizontal_alignment = 1
+
+[node name="ExplanationText" type="Label" parent="ExplanationPlanel/ExplanationVBox"]
+custom_minimum_size = Vector2(750, 500)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+
+[node name="NextButton" type="Button" parent="ExplanationPlanel/ExplanationVBox"]
+layout_mode = 2
+text = "Siguiente Pregunta
+"
+
+[node name="ResultPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultVBox" type="VBoxContainer" parent="ResultPanel"]
+custom_minimum_size = Vector2(750, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -58.0
+offset_right = 20.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ResultTitle" type="Label" parent="ResultPanel/ResultVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quiz Completado"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="ResultPanel/ResultVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Puntaje: 0/10"
+horizontal_alignment = 1
+
+[node name="PerfomanceLabel" type="Label" parent="ResultPanel/ResultVBox"]
+custom_minimum_size = Vector2(700, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="SummaryLabel" type="Label" parent="ResultPanel/ResultVBox"]
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 2
+
+[node name="RestartButton" type="Button" parent="ResultPanel/ResultVBox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Jugar de nuevo"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.505
+one_shot = true
