@@ -14,6 +14,11 @@ var flipped_cards = []
 var attempts = 0
 var matches = 0
 
+# Temporizador del desafío (segundos máximos)
+var total_time = 60  # ⏳ Tiempo límite
+var remaining_time = total_time
+var time_active = true
+
 # Descripciones educativas de cada componente
 var descriptions = {
 	"LED": "LED: Diodo emisor de luz. Convierte energía eléctrica en luz para transmitir datos.",
@@ -27,13 +32,12 @@ var descriptions = {
 func _ready():
 	timer.timeout.connect(_on_timer_timeout)
 	setup_game()
+	start_countdown()  # ⏱ Inicia el temporizador de límite de tiempo
 
 func setup_game():
-	# Duplicar valores para hacer parejas
 	var deck = card_values + card_values
 	deck.shuffle()
 	
-	# Crear las cartas
 	for i in range(deck.size()):
 		var card = card_scene.instantiate()
 		cards_container.add_child(card)
@@ -43,15 +47,34 @@ func setup_game():
 	
 	update_stats()
 
+# -----------------------------
+# ⏱ LÍMITE DE TIEMPO GLOBAL
+# -----------------------------
+func start_countdown():
+	# Corrutina que cuenta el tiempo sin agregar nodos nuevos
+	await get_tree().create_timer(1.0).timeout
+	while remaining_time > 0 and matches < card_values.size() and time_active:
+		remaining_time -= 1
+		stats_label.text = "⏳ Tiempo: %ds | Intentos: %d | Parejas: %d/%d" % [remaining_time, attempts, matches, card_values.size()]
+		await get_tree().create_timer(1.0).timeout
+	
+	# Si el tiempo se acaba antes de completar
+	if remaining_time <= 0 and matches < card_values.size():
+		time_active = false
+		stats_label.text = "❌ Tiempo agotado. Intenta más rápido la próxima vez."
+		await get_tree().create_timer(3.0).timeout
+		get_tree().change_scene_to_file("res://Escenas/Game.tscn")
+
+# -----------------------------
+# 🎮 LÓGICA DE CARTAS
+# -----------------------------
 func _on_card_pressed(card):
-	# Solo permitir 2 cartas volteadas a la vez
-	if flipped_cards.size() >= 2:
+	if flipped_cards.size() >= 2 or not time_active:
 		return
 	
 	card.flip()
 	flipped_cards.append(card)
 	
-	# Si hay 2 cartas volteadas, verificar
 	if flipped_cards.size() == 2:
 		attempts += 1
 		check_match()
@@ -61,28 +84,22 @@ func check_match():
 	var card2 = flipped_cards[1]
 	
 	if card1.card_value == card2.card_value:
-		# ¡Son iguales!
 		card1.set_matched()
 		card2.set_matched()
 		matches += 1
 		
-		# Mostrar descripción del componente
 		var description = descriptions[card1.card_value]
 		stats_label.text = "✅ ¡Pareja encontrada! " + description
-		
 		flipped_cards.clear()
 		
-		# Verificar si ganó
 		if matches == card_values.size():
-			timer.start(2.0)  # Esperar 2 segundos antes de mostrar victoria
+			time_active = false
+			timer.start(2.0)
 		else:
-			# Volver a mostrar stats después de 3 segundos
 			await get_tree().create_timer(3.0).timeout
 			update_stats()
 	else:
-		# No son iguales, mostrar mensaje
 		stats_label.text = "❌ No coinciden. Intenta de nuevo..."
-		# Voltear después de 1.5 segundos
 		timer.start(1.5)
 
 func _on_timer_timeout():
@@ -94,22 +111,29 @@ func _on_timer_timeout():
 		flipped_cards.clear()
 		update_stats()
 
+# -----------------------------
+# 🧠 ACTUALIZAR INFO
+# -----------------------------
 func update_stats():
-	stats_label.text = "Intentos: %d | Parejas: %d/%d" % [attempts, matches, card_values.size()]
+	stats_label.text = "⏳ Tiempo: %ds | Intentos: %d | Parejas: %d/%d" % [remaining_time, attempts, matches, card_values.size()]
 
+# -----------------------------
+# 🏁 FINALIZAR JUEGO
+# -----------------------------
 func show_victory():
 	cards_container.visible = false
 	stats_label.add_theme_font_size_override("font_size", 11)
 	
 	var percentage = (float(card_values.size()) / attempts) * 100
+	var used_time = total_time - remaining_time
 	
 	var victory_message = """🎉 ¡COMPLETADO! 🎉
 Intentos: %d (%.1f%% eficiencia)
+Tiempo: %ds
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━
-
 📡 IMPORTANCIA DE LAS 
-   COMUNICACIONES ÓPTICAS
+COMUNICACIONES ÓPTICAS
 
 🌐 Internet de alta velocidad (>100 Gbps)
 💡 Menor pérdida de señal vs. cobre
@@ -122,14 +146,11 @@ de internet, permitiendo streaming,
 videollamadas y transferencias masivas
 de datos a velocidad de la luz.
 
-¡Gracias por aprender! 📚""" % [attempts, percentage]
+¡Gracias por aprender! 📚""" % [attempts, percentage, used_time]
 	
 	stats_label.text = victory_message
 	stats_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 
-	# ✅ Esperar 5 segundos sin create_timer (ni bloquear)
-	var start_time = Time.get_ticks_msec()
-	while Time.get_ticks_msec() - start_time < 5000:
-		await get_tree().process_frame
-
+	# Esperar 5 segundos antes de volver al juego
+	await get_tree().create_timer(5.0).timeout
 	get_tree().change_scene_to_file("res://Escenas/Game.tscn")
