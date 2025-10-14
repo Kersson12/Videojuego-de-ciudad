@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bw5q6mts0aejg"]
 
-[ext_resource type="Script" uid="uid://byqqi7kb48piy" path="res://memory_game.gd" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://byqqi7kb48piy" path="res://Scripts/memory_game.gd" id="1_wtcfe"]
 
 [node name="MemoryGame" type="Control"]
 clip_contents = true
