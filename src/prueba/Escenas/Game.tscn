@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1tm4hbmnjpbr"]
+[gd_scene load_steps=7 format=3 uid="uid://d1tm4hbmnjpbr"]
 
+[ext_resource type="Script" uid="uid://mny0lp2l5ta0" path="res://Scripts/Game.gd" id="1_mdk62"]
 [ext_resource type="PackedScene" uid="uid://b12jvumo66u2c" path="res://Escenas/ciudad.tscn" id="1_xqphe"]
 [ext_resource type="Script" uid="uid://drvsreiow3i7e" path="res://Scripts/camera_2d.gd" id="2_qup40"]
 [ext_resource type="Script" uid="uid://c8thts6xoom3t" path="res://Scripts/cable_manager.gd" id="3_1d5jh"]
@@ -7,6 +8,7 @@
 [ext_resource type="Script" uid="uid://22f7hgtl8em0" path="res://Scripts/hud.gd" id="5_7rpyo"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_mdk62")
 
 [node name="Ciudad" parent="." instance=ExtResource("1_xqphe")]
 

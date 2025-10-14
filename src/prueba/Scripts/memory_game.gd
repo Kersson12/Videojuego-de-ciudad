@@ -99,8 +99,6 @@ func update_stats():
 
 func show_victory():
 	cards_container.visible = false
-	
-	# Reducir tamaño de fuente
 	stats_label.add_theme_font_size_override("font_size", 11)
 	
 	var percentage = (float(card_values.size()) / attempts) * 100
@@ -128,3 +126,10 @@ de datos a velocidad de la luz.
 	
 	stats_label.text = victory_message
 	stats_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+
+	# ✅ Esperar 5 segundos sin create_timer (ni bloquear)
+	var start_time = Time.get_ticks_msec()
+	while Time.get_ticks_msec() - start_time < 5000:
+		await get_tree().process_frame
+
+	get_tree().change_scene_to_file("res://Escenas/Game.tscn")
