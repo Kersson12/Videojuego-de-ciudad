@@ -8,7 +8,7 @@ extends Node2D
 var pulso_actual: Node2D = null
 var pulso_esperando_click := false
 var minijuegos = [
-	"res://Escenas/node_2d.tscn"
+	"res://Escenas/SmithMatchGame.tscn"
 ]
 
 func _ready():
