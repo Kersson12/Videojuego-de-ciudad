@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Pruebaperso"
+config/name="FutureCity"
 run/main_scene="uid://dt1ufdtyi0xa3"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://ca2x0gy0l5yl2"
+
+[autoload]
+
+MusicPlayer="*res://Escenas/MusicPlayer.tscn"
 
 [display]
 
@@ -21,6 +25,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/initial_position_type=0
 window/size/initial_position=Vector2i(800, 400)
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

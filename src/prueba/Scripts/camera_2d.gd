@@ -15,7 +15,7 @@ extends Camera2D
 # ------------------------------------------------------------
 # LIMITES DE MOVIMIENTO (defínelos según tu mapa o ciudad)
 # ------------------------------------------------------------
-@export var bounds_min: Vector2 = Vector2(-1500, -1500)
+@export var bounds_min: Vector2 = Vector2(-2000, -1500)
 @export var bounds_max: Vector2 = Vector2(1500, 1500)
 
 # ------------------------------------------------------------

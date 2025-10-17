@@ -8,6 +8,11 @@ func _ready():
 	$VBoxContainer/PlayButton.pressed.connect(_on_play_pressed)
 	$VBoxContainer/OptionsButton.pressed.connect(_on_options_pressed)
 	$VBoxContainer/QuitButton.pressed.connect(_on_quit_pressed)
+	if not get_tree().get_root().has_node("MusicPlayer"):
+		var music = preload("res://Escenas/MusicPlayer.tscn").instantiate()
+		music.name = "MusicPlayer"
+		get_tree().get_root().add_child(music)
+		music.owner = null   # evita que se borre al cambiar escena
 
 func _on_play_pressed():
 	var game_scene = load(GAME_SCENE)
