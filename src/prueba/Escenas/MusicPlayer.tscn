@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://4uscyb5fudeh"]
+
+[ext_resource type="Script" uid="uid://5gr5nuw8ghfd" path="res://Scripts/music_player.gd" id="1_ndj48"]
+[ext_resource type="AudioStream" uid="uid://bwvxc2hbekbvr" path="res://Sonidos/Ocean Drive.mp3" id="2_rhrx0"]
+
+[node name="MusicPlayer" type="Node2D"]
+script = ExtResource("1_ndj48")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_rhrx0")
+volume_db = -39.119
+autoplay = true
+parameters/looping = false

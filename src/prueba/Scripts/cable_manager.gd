@@ -57,7 +57,6 @@ func _ready():
 	floating_label.scale = Vector2(1.1, 1.1)
 	add_child(floating_label)
 	floating_label.z_index = 100
-	floating_label.text = "Grid listo..."
 	floating_label.position = Vector2(20, 20)
 
 # -------------------------

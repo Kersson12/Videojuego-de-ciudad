@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmk2jyu0s7utp"]
+[gd_scene load_steps=3 format=3 uid="uid://dmk2jyu0s7utp"]
+
+[ext_resource type="Texture2D" uid="uid://ca2x0gy0l5yl2" path="res://Assets/JUGAR.png" id="1_7jl6f"]
 
 [sub_resource type="GDScript" id="GDScript_nxf5b"]
 script/source = "extends Button
@@ -38,16 +40,20 @@ func _on_pressed():
 "
 
 [node name="Button" type="Button"]
-custom_minimum_size = Vector2(100, 140)
-offset_right = 100.0
-offset_bottom = 140.0
-text = "Encuentra la pareja"
+custom_minimum_size = Vector2(140, 140)
+offset_right = 620.0
+offset_bottom = 620.0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("1_7jl6f")
+icon_alignment = 1
+expand_icon = true
 script = SubResource("GDScript_nxf5b")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "?"
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 90.0
+offset_bottom = 73.0
 horizontal_alignment = 1
 vertical_alignment = 1

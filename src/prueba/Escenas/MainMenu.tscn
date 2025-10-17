@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dt1ufdtyi0xa3"]
 
 [ext_resource type="Script" uid="uid://d1vjneto4uhsq" path="res://Scripts/MainMenu.gd" id="1_ck5re"]
-[ext_resource type="Texture2D" uid="uid://bl8qq6lfr8f71" path="res://Assets/istockphoto-946491140-612x612.jpg" id="2_c76rt"]
+[ext_resource type="Texture2D" uid="uid://dfq81mgej03sr" path="res://Assets/2785340863 (1).png" id="2_ck5re"]
 [ext_resource type="Texture2D" uid="uid://srm0n28xr204" path="res://Assets/3-removebg-preview (1).png" id="3_a1trd"]
 [ext_resource type="Texture2D" uid="uid://kelxqiki0f5l" path="res://Assets/4-removebg-preview (1).png" id="4_670dp"]
 [ext_resource type="Texture2D" uid="uid://c0ixaej3fla0d" path="res://Assets/5-removebg-preview (1).png" id="5_b0o1t"]
@@ -10,9 +10,10 @@
 script = ExtResource("1_ck5re")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 1280.0
-offset_bottom = 720.0
-texture = ExtResource("2_c76rt")
+offset_right = 2344.0
+offset_bottom = 1560.0
+scale = Vector2(0.546, 0.462)
+texture = ExtResource("2_ck5re")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -20,10 +21,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 50.0
-offset_top = 108.0
-offset_right = 550.0
-offset_bottom = 1616.0
+offset_left = 101.0
+offset_top = 73.0
+offset_right = 601.0
+offset_bottom = 1581.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.4, 0.4)
