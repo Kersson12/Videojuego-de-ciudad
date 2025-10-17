@@ -1,16 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://crna3yij3eujb"]
+[gd_scene load_steps=6 format=3 uid="uid://crna3yij3eujb"]
 
 [ext_resource type="Script" uid="uid://cc40xlphpv4nw" path="res://Scripts/SmithMatchGame.gd" id="1_rgupp"]
 [ext_resource type="Texture2D" uid="uid://vbbi7f1nctyv" path="res://Assets/smith.png" id="2_r0ns1"]
-
-[sub_resource type="Theme" id="Theme_r0ns1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2g18g"]
-bg_color = Color(0.22745098, 0.22745098, 0.22745098, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0ns1"]
 bg_color = Color(0.20392157, 0.59607846, 0.85882354, 1)
@@ -39,39 +30,36 @@ anchors_preset = 0
 script = ExtResource("1_rgupp")
 
 [node name="Panel" type="Panel" parent="."]
+self_modulate = Color(0, 5.51, 0, 0.714)
 layout_mode = 0
-offset_left = 384.0
-offset_top = -10.0
-offset_right = 1072.0
-offset_bottom = 702.0
-theme = SubResource("Theme_r0ns1")
-theme_override_styles/panel = SubResource("StyleBoxFlat_2g18g")
+offset_right = 1280.0
+offset_bottom = 720.0
 
 [node name="Background" type="TextureRect" parent="Panel"]
 layout_mode = 0
-offset_left = 206.0
-offset_top = 65.0
-offset_right = 662.0
-offset_bottom = 695.0
+offset_left = 398.0
+offset_top = 67.0
+offset_right = 1038.0
+offset_bottom = 707.0
 texture = ExtResource("2_r0ns1")
 expand_mode = 1
 
 [node name="TitleLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 242.0
-offset_top = 13.0
-offset_right = 622.0
-offset_bottom = 49.0
+offset_left = 434.0
+offset_top = 15.0
+offset_right = 814.0
+offset_bottom = 51.0
 theme_override_font_sizes/font_size = 26
 text = "Alinea el punto de impedancia"
 horizontal_alignment = 1
 
 [node name="SliderR" type="HSlider" parent="Panel"]
 layout_mode = 0
-offset_left = 28.0
-offset_top = 81.0
-offset_right = 170.0
-offset_bottom = 97.0
+offset_left = 220.0
+offset_top = 83.0
+offset_right = 362.0
+offset_bottom = 99.0
 
 [node name="ValueLabel" type="Label" parent="Panel/SliderR"]
 layout_mode = 0
@@ -83,10 +71,10 @@ text = "R"
 
 [node name="SliderX" type="HSlider" parent="Panel"]
 layout_mode = 0
-offset_left = 31.0
-offset_top = 151.0
-offset_right = 170.0
-offset_bottom = 167.0
+offset_left = 223.0
+offset_top = 153.0
+offset_right = 362.0
+offset_bottom = 169.0
 
 [node name="ValueLabel" type="Label" parent="Panel/SliderX"]
 layout_mode = 0
@@ -98,65 +86,66 @@ text = "X"
 
 [node name="BtnShowTarget" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 629.0
-offset_right = 181.0
-offset_bottom = 688.0
+offset_left = 236.0
+offset_top = 631.0
+offset_right = 373.0
+offset_bottom = 690.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_r0ns1")
 text = "Mostrar objetivo"
 
 [node name="BtnCheck" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 547.0
-offset_top = 86.0
-offset_right = 645.0
-offset_bottom = 117.0
+offset_left = 910.0
+offset_top = 88.0
+offset_right = 1008.0
+offset_bottom = 119.0
 theme_override_colors/font_outline_color = Color(0, 0.7490196, 0.6509804, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_6xtsg")
 text = "Verificar"
 
 [node name="BtnExit" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 587.0
-offset_top = 647.0
-offset_right = 629.0
-offset_bottom = 678.0
+offset_left = 966.0
+offset_top = 657.0
+offset_right = 1008.0
+offset_bottom = 688.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_e2l46")
 text = "Salir"
 
 [node name="Marker" type="ColorRect" parent="Panel"]
 layout_mode = 0
-offset_left = 662.0
-offset_top = 31.0
-offset_right = 669.0
-offset_bottom = 38.0
+offset_left = 854.0
+offset_top = 33.0
+offset_right = 861.0
+offset_bottom = 40.0
 color = Color(1, 0.046875, 0.13352174, 1)
 
 [node name="ResultLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 21.0
-offset_top = 168.0
-offset_right = 183.0
-offset_bottom = 281.0
+offset_left = 213.0
+offset_top = 170.0
+offset_right = 375.0
+offset_bottom = 283.0
 horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="SFXPlayer" type="AudioStreamPlayer2D" parent="Panel"]
+position = Vector2(192, 2)
 
 [node name="TargetMarker" type="ColorRect" parent="Panel"]
 layout_mode = 0
-offset_left = 634.0
-offset_top = 28.0
-offset_right = 641.0
-offset_bottom = 35.0
+offset_left = 826.0
+offset_top = 30.0
+offset_right = 833.0
+offset_bottom = 37.0
 color = Color(0.4126072, 0.6640625, 0.32165527, 1)
 
 [node name="TargetLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 313.0
-offset_right = 182.0
-offset_bottom = 355.0
+offset_left = 201.0
+offset_top = 315.0
+offset_right = 374.0
+offset_bottom = 357.0
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 autowrap_mode = 3

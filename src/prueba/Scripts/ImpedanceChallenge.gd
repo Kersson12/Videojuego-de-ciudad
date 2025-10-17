@@ -3,7 +3,7 @@ signal minigame_completed(success: bool, reward: float)
 
 @export var target_z0: float = 100.0
 @export var tolerance: float = 5.0
-@export var time_limit: float = 30.0  # ⏱️ Tiempo máximo (en segundos)
+@export var time_limit: float = 10.0 # ⏱️ Tiempo máximo (en segundos)
 
 @onready var sliderL = $Panel/SliderL
 @onready var sliderC = $Panel/SliderC
@@ -38,7 +38,7 @@ func _ready():
 
 	# Crear etiqueta visual de tiempo
 	lbl_timer.text = "⏱️ Tiempo: %.0f s" % time_limit
-	lbl_timer.position = Vector2(20, 20)
+	lbl_timer.position = Vector2(-50, 150)
 	lbl_timer.add_theme_font_size_override("font_size", 22)
 	lbl_timer.add_theme_color_override("font_color", Color(1, 0.9, 0.2))
 	add_child(lbl_timer)

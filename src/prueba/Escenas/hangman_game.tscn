@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_3ypp6")
 
 [node name="fondo" type="ColorRect" parent="."]
+self_modulate = Color(0, 5.51, 0, 0.714)
 custom_minimum_size = Vector2(800, 500)
 layout_mode = 1
 anchors_preset = 15
